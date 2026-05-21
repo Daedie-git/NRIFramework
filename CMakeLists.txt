@@ -77,7 +77,12 @@ set_target_properties(detex PROPERTIES FOLDER "${PROJECT_NAME}")
 # External/NRI
 option(NRI_ENABLE_WAYLAND_SUPPORT "" ${NRIF_USE_WAYLAND})
 option(NRI_ENABLE_IMGUI_EXTENSION "" ON)
-add_subdirectory("External/NRI")
+set(NRI_SOURCE_OVERRIDE_DIR "" CACHE PATH "Optional local NRI checkout override")
+if(NRI_SOURCE_OVERRIDE_DIR)
+    add_subdirectory("${NRI_SOURCE_OVERRIDE_DIR}" "${CMAKE_CURRENT_BINARY_DIR}/External/NRI")
+else()
+    add_subdirectory("External/NRI")
+endif()
 
 # External/MathLib
 add_subdirectory("External/MathLib")
